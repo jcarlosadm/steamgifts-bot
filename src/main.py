@@ -80,6 +80,9 @@ class SteamGifts:
             paginated_url = f"{self.base}/giveaways/{filtered_url}"
 
             soup = self.get_soup_from_page(paginated_url)
+            if (not self.pinned):
+                for div in soup.find_all('div', {'class': 'pinned-giveaways__inner-wrap' }):
+                    div.decompose()
 
             game_list = soup.find_all('div', {'class': 'giveaway__row-inner-wrap'})
 
